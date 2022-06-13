@@ -270,6 +270,12 @@ func (a *App) startup() error {
 	tlsCfg.SessionTicketsDisabled = true
 	tlsCfg.InsecureSkipVerify = true
 
+	// The following two lines open a file in the current directory and configure the application to dump its TLS secrets there
+	// See: https://pkg.go.dev/crypto/tls#example-Config-KeyLogWriter
+
+	w, err := os.OpenFile("tls-secrets.txt", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+        tlsCfg.KeyLogWriter = w
+
 	// Start discovery and connection management
 
 	// Chicken and egg, discovery manager depends on connection service to tell it what addresses it's listening on

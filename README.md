@@ -1,3 +1,7 @@
+# Syncthing With TLS Secrets Export
+
+This is a version of Syncthing identical to the upstream code with the single addition of one tiny patch (just two lines of code) which causes the application to export its TLS secrets to a file (currently hard-coded to `tls-secrets.txt` in the directory from which the application is run), which can then be provided to [Wireshark](https://www.wireshark.org/) in order to enable the dissection of the various [Syncthing protocols](https://docs.syncthing.net/specs/index.html) that utilize TLS. (A Wireshark Syncthing dissector is available [here](https://github.com/tmo1/wireshark-syncthing-dissector); it is a WIP, and so far only [Local Discovery Protocol v4](https://docs.syncthing.net/specs/localdisco-v4.html) [which does not utilize TLS] has been implemented.)
+
 [![Syncthing][14]][15]
 
 ---
