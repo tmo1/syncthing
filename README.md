@@ -1,6 +1,20 @@
 # Syncthing With TLS Secrets Export
 
-This is a version of Syncthing identical to the upstream code with the single addition of one tiny patch (just two lines of code) which causes the application to export its TLS secrets to a file (currently hard-coded to `tls-secrets.txt` in the directory from which the application is run), which can then be provided to [Wireshark](https://www.wireshark.org/) in order to enable the dissection of the various [Syncthing protocols](https://docs.syncthing.net/specs/index.html) that utilize TLS. (A Wireshark Syncthing dissector is available [here](https://github.com/tmo1/wireshark-syncthing-dissector); it is a WIP, and so far only [Local Discovery Protocol v4](https://docs.syncthing.net/specs/localdisco-v4.html) [which does not utilize TLS] has been implemented.)
+This is a version of Syncthing identical to the upstream code with the single addition of one tiny patch (just two lines of code) that causes the application to export its TLS secrets to a file (currently hard-coded to `tls-secrets.txt` in the directory from which the application is run), which can then be provided to [Wireshark](https://www.wireshark.org/) in order to enable the dissection of the various [Syncthing protocols](https://docs.syncthing.net/specs/index.html) that utilize TLS. (A Wireshark Syncthing dissector is available [here](https://github.com/tmo1/wireshark-syncthing-dissector); it is a WIP, and so far only [Local Discovery Protocol v4](https://docs.syncthing.net/specs/localdisco-v4.html) [which does not utilize TLS] has been implemented.)
+
+**Important:** Note that [as the Go documentation warns](https://pkg.go.dev/crypto/tls#example-Config-KeyLogWriter),
+
+```
+"WARNING: Use of KeyLogWriter compromises security and should only be used for debugging.
+```
+
+To build this patched version, just follow [upstream's simple build instructions](https://docs.syncthing.net/dev/building.html), replacing upstream's git URL (`https://github.com/syncthing/syncthing.git`) with this repository's (`https://github.com/tmo1/syncthing.git`).
+
+When using this patched version of Syncthing, automatic upgrades should be disabled (e.g., via `Actions / Settings / Automatic upgrades` from the GUI), since if this is not done, the application will eventually "upgrade" itself to a vanilla, unpatched version.
+
+The upstream Syncthing `README` follows.
+
+---
 
 [![Syncthing][14]][15]
 
